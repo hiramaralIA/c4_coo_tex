@@ -1,2 +1,2 @@
 # c4_coo_tex
- Diagramas Prtojeto coo_tex em C4
+ Diagramas do Projeto coo_tex em C4
