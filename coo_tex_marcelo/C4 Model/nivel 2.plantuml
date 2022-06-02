@@ -1,0 +1,31 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+!include DEVICONS/javascript.puml
+!include DEVICONS/mysql.puml
+
+LAYOUT_WITH_LEGEND()
+
+System_Boundary(c1, "COO_TEX") {
+
+Container(api, "API Application", "Javascript", "Providers Internet funcinallity via a JSON/HTTPS API", $sprite="javascript")
+
+ContainerDb(db, "Database", "MySQL", "Store all of the core COO_TEX information about costumers, accounts e transactions.", $sprite="mysql")
+
+Person(user, "Cliente", "A customer of the COO_TEX, with personal accounts.")
+
+Container(spa, "COO_TEX WEB APPLICATION", "Php", "Providers the static content and internet coo_tex single page application", $sprite="user")
+
+Container(singlePageApplication,"Single-Page Application", "Javascript and Php", "provides all the functionalities of projects, purchases and sales of carbon credits to customers via their web broswer")
+
+}
+Rel(user, spa, "Visit coo_tex.com using", "https" )
+Rel_R(spa, singlePageApplication, " ", "Delivers to the customer's web browser")
+Rel(singlePageApplication, api, "Make API calls", "JSON/HTTPS")
+Rel_L(api, db, "Reads and Writes to", "MYSQL")
+@enduml 

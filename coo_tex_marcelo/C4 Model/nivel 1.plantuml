@@ -1,0 +1,18 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "Cliente", "A customer of the COO_TEX, with personal accounts.")
+
+Container(spa, "COO_TEX", "Web Application", "Allow customers Add projects and to view information the COO_TEX and buy and sell carbon credits", $sprite="user")
+
+ContainerDb(db, "Database", "MySQL", "Store all of the core COO_TEX information about costumers, accounts e transactions.", $sprite="mysql")
+
+Rel(user, spa, " ", "View accounts status, make transactions using" )
+Rel(spa, db, " ", "Gets accounts information from about their COO_TEX account, and make transactions")
+
+@enduml 

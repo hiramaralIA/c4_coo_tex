@@ -1,0 +1,37 @@
+@startuml Basic Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+!include DEVICONS/javascript.puml
+!include DEVICONS/mysql.puml
+
+LAYOUT_WITH_LEGEND()
+
+Container(api, "API Application", "Javascript", "Providers Internet funcinallity via a JSON/HTTPS API", $sprite="javascript")
+
+System_Boundary(c1, "COO_TEX") {
+  Container(sign, "Sign in controller","component API", "All customers to sign in to registration system")
+  Container(reset, "Reset Password controller","component API", "All customers to reset their password")
+  Container(account, "Account Overview Controller","component API", "All customers to view their registrations")
+  Container(security, "Security","component API", "functionally for sign-in account management")
+  Container(email, "E-mail component","component API", "Send confirmation e-mails")
+  Container(register, "Registration component","component API", "Allows Customers to sign-up for feature class")
+}
+
+ContainerDb(db, "Database", "MySQL", "Store all of the core COO_TEX information about costumers, accounts e transactions.", $sprite="mysql")
+
+Rel(api, sign, "API calls")
+Rel(api, reset, "API calls")
+Rel(api, account, "API calls")
+Rel(reset, email, "Uses")
+Rel(reset, security, "Uses")
+Rel(sign, security, "Uses")
+Rel(account, register, "Uses")
+Rel_L(register, email, "Uses")
+Rel(security, db, "Writes to Reads from")
+
+@enduml 
